@@ -12,7 +12,7 @@ public class OrderServiceTest {
     @Test
     public void testCreateOrder() {
         OrderRepository mockRepo = mock(OrderRepository.class);
-        OrderService service = new OrderService();
+        OrderService service = new OrderService(mockRepo);
         OrderRequest req = new OrderRequest();
         req.setCustomerName("John");
         req.setAmount(123.45);

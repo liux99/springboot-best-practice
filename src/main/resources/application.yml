@@ -12,13 +12,23 @@ spring:
     show-sql: true
   h2:
     console:
-      enabled: true	  
-  
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: "*"
-    endpoint:
-      health:
-        show-details: always
+      enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    enable:
+      jvm: true
+      http: true
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+    tags:
+      application: order-service
+
