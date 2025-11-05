@@ -1,0 +1,58 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+logs/
+*.out
+
+# Eclipse
+.settings/
+.project
+.classpath
+
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# Build
+/target/
+/build/
+/bin/
+/.gradle/
+/mvnw
+!gradle/wrapper/gradle-wrapper.jar
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+*.local
+
+# Spring Boot dev tools
+.spring-boot-devtools.properties
+
+# H2 database files
+*.h2.db
+*.mv.db
+*.trace.db
+
+# Swagger UI cache
+/swagger-ui/
+
+# Docker
+docker-compose.override.yml
+*.pid
+
+# Test output
+test-output/
+/target/
