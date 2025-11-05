@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
-    private final OrderRepository repository = null;
+    private final OrderRepository repository;
 
     public Order createOrder(OrderRequest request) {
         Order order = Order.builder()
