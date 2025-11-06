@@ -182,6 +182,33 @@ All handled in `GlobalExceptionHandler.java`
 
 ---
 
+### 10. Monitoring and Observability
+
+Prometheus and Grafana Setup (Local)
+
+	Use docker-compose.yml to spin up:
+
+	Spring Boot App (with exposed /actuator/prometheus)
+
+	Prometheus (port 9090)
+
+	Grafana (port 3000, default login: admin/admin)
+
+Run: 
+	docker compose -f docker-compose.yml up --build
+
+	This will run the springboot application, prometheus and grafana.
+
+Access URLs
+
+	Spring Boot App: http://localhost:8080
+
+	Prometheus: http://localhost:9090
+
+	Grafana: http://localhost:3000
+		Username: admin, Password: admin
+
+
 ## Todos
 
 * Product, Inventory, Delivery microservices
