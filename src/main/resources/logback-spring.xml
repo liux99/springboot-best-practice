@@ -18,6 +18,15 @@
         <loggerName>
           <fieldName>logger</fieldName>
         </loggerName>
+         <pattern>
+	      <pattern>
+	        {
+	          "service": "order-service",
+	          "traceId": "%X{traceId:-}",
+	          "spanId": "%X{spanId:-}"
+	        }
+	      </pattern>
+	    </pattern>
         <message/>
         <stackTrace/>
       </providers>

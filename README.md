@@ -182,40 +182,103 @@ All handled in `GlobalExceptionHandler.java`
 
 ---
 
-### 10. Monitoring and Observability
+### 10. API Documentation (Swagger)
+```
+This project uses Springdoc OpenAPI to generate Swagger UI.
 
-Prometheus and Grafana Setup (Local)
+Swagger UI: http://localhost:8080/swagger-ui/index.html
 
-	Use docker-compose.yml to spin up:
+OpenAPI JSON: http://localhost:8080/v3/api-docs
 
-	Spring Boot App (with exposed /actuator/prometheus)
+All controllers and DTOs are annotated with:
 
-	Prometheus (port 9090)
+@Operation(summary = "Create new order")
+@ApiResponse(...)
+```
+### 11. Observability: Actuator + Prometheus + Grafana
+```
+This microservice exposes internal telemetry via:
 
-	Grafana (port 3000, default login: admin/admin)
+Spring Boot Actuator
 
-Run: 
-	docker compose -f docker-compose.yml up --build
+/actuator/health – health checks
 
-	This will run the springboot application, prometheus and grafana.
+/actuator/metrics – JVM, HTTP metrics
 
-Access URLs
+/actuator/prometheus – scrape endpoint for Prometheus
 
-	Spring Boot App: http://localhost:8080
+Prometheus
 
-	Prometheus: http://localhost:9090
+Pulls metrics from /actuator/prometheus
 
-	Grafana: http://localhost:3000
-		Username: admin, Password: admin
+URL: http://localhost:9090
 
+Grafana
+
+Visual dashboards based on Prometheus metrics
+
+URL: http://localhost:3000
+
+Default login: admin / admin
+```
+
+### 12. Logging Strategy 
+```
+Uses Logback with logstash-logback-encoder for JSON logs
+
+Logs include:
+
+timestamp, level, thread, logger, message
+
+Custom fields: service, traceId, spanId
+
+Example Log Format:
+{
+  "timestamp": "2025-11-05T10:00:00Z",
+  "level": "INFO",
+  "service": "order-service",
+  "traceId": "f3b6c97e23",
+  "spanId": "2a89ce01a1",
+  "message": "Creating order for customer: Alice"
+}
+
+AOP can be used for logging entry/exit of methods
+
+Manual log.info() used for key business actions
+```
+### 13. Observability Platform Integration (e.g., New Relic)
+```
+This project is ready to export logs and metrics to New Relic:
+
+Java agent injected via Dockerfile
+
+Logs in JSON format for ingestion
+
+Optional: add OpenTelemetry SDK or New Relic Micrometer exporter
+
+Traces and logs will include traceId and spanId
+
+Configure New Relic agent via JAVA_OPTS:
+
+-javaagent:/app/newrelic/newrelic.jar
+-Dnewrelic.config.license_key=YOUR_KEY
+-Dnewrelic.config.app_name=order-service
+
+Optional exporters supported:
+
+OTLP to New Relic, Splunk, or Tempo
+
+Micrometer registry for New Relic
+```
+
+ 
 
 ## Todos
 
 * Product, Inventory, Delivery microservices
 * Distributed transactions / Saga orchestration
 * OAuth2 with Spring Security
-* Actuator, metrics, and health checks
-* Docker Compose and Kubernetes deployment
+* Kubernetes deployment
 
 ---
 
